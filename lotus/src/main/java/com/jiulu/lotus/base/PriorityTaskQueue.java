@@ -14,6 +14,9 @@ public class PriorityTaskQueue<E> implements TaskQueue<E> {
     //默认的优先级大小
     public static final int DEFAULT_PRIORITY_LEVEL = 5; // 0 - 100
 
+    //默认的扩容因子
+    public static final int DEFAULT_GROW_UP_FACTOR = 2;
+
 
     static class Entry<E> {
         int priority;
@@ -63,7 +66,7 @@ public class PriorityTaskQueue<E> implements TaskQueue<E> {
 
     @Override
     public void add(E element) {
-       add(element,makeNextPriority());
+        add(element, makeNextPriority());
     }
 
     @Override
@@ -93,15 +96,15 @@ public class PriorityTaskQueue<E> implements TaskQueue<E> {
     private void shiftDown(int k) {
         while (2 * k <= size) {
             int j = 2 * k;
-            if(j + 1 <= size && table[j + 1].priority > table[j].priority ){
+            if (j + 1 <= size && table[j + 1].priority > table[j].priority) {
                 j = j + 1;
             }
 
-            if(table[k].priority >= table[j].priority){
+            if (table[k].priority >= table[j].priority) {
                 break;
             }
 
-            swap(k,j);
+            swap(k, j);
             k = j;
         }
     }
@@ -121,9 +124,36 @@ public class PriorityTaskQueue<E> implements TaskQueue<E> {
         table[k] = t;
     }
 
+    //扩容
+    private void growup() {
+        int newCapacity = capacity * DEFAULT_GROW_UP_FACTOR;
+        Entry[] newTable = new Entry[newCapacity + 1];
+
+        int oldCapacity = capacity;
+        Entry[] oldTable = table;
+
+        for (int i = 1; i <= oldCapacity; i++) {
+            newTable[i] = oldTable[i];
+        }
+
+        capacity = newCapacity;
+        table = newTable;
+    }
+
+    //是否需要扩容
+    private boolean needGrowup() {
+        return isFull();
+    }
+
+    private boolean isFull() {
+        return size == capacity;
+    }
+
     //检查容量
     private void checkCapacity() {
-
+        if(needGrowup()){
+            growup();
+        }
     }
 
     //生成默认的优先级

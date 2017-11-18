@@ -2,6 +2,7 @@ package com.jiulu.lotus.test;
 
 import com.jiulu.lotus.base.FixedThreadPool;
 import com.jiulu.lotus.base.ThreadPool;
+import com.jiulu.lotus.tool.Md5Utils;
 
 /**
  * 测试类
@@ -21,29 +22,31 @@ public class Playground {
 //        }
 
 
-        ThreadPool pool = new FixedThreadPool(3);
-        pool.start();
+//        ThreadPool pool = new FixedThreadPool(3);
+//        pool.start();
+//
+//        for (int i = 0; i < 7; i++) {
+//            pool.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    String name = Thread.currentThread().getName();
+//                    try {
+//                        Thread.currentThread().sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println(name + "   做完了");
+//                }
+//            });
+//        }
+//
+//        Thread.currentThread().sleep(10 * 1000);
+//        pool.shutdown();
 
-        for (int i = 0; i < 7; i++) {
-            pool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    String name = Thread.currentThread().getName();
-                    try {
-                        Thread.currentThread().sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(name + "   做完了");
-                }
-            });
 
-        }
+        System.out.println(Md5Utils.toMd5("http://www.baidu.com"));
 
 
-
-        Thread.currentThread().sleep(10 * 1000);
-        pool.shutdown();
 
     }
 

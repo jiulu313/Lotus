@@ -10,10 +10,17 @@ import java.util.WeakHashMap;
 public class Worker extends Thread{
     private boolean mRunning = false;
     private TaskQueue<Runnable> mTaskQueue;
+    private String mName;   //工作线程名字
 
 
     public Worker(TaskQueue<Runnable> taskQueue){
+        this(taskQueue,Thread.currentThread().getId() + "");
+    }
+
+    public Worker(TaskQueue<Runnable> taskQueue,String name){
+        super(name);
         mTaskQueue = taskQueue;
+        mName = name;
     }
 
     public void start(){
@@ -35,8 +42,8 @@ public class Worker extends Thread{
                     try {
                         mTaskQueue.wait();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
                         mRunning = false;
+                        break;
                     }
                 }
 

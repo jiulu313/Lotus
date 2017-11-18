@@ -27,11 +27,11 @@ public class FixedThreadPool implements ThreadPool {
 
     public FixedThreadPool(int workerNum) {
         if (workerNum > MAX_WORKER_NUM) {
-            workerNum = MAX_WORKER_NUM;
+            mWorkerNum = MAX_WORKER_NUM;
         } else if (workerNum < MIN_WORKER_NUM) {
-            workerNum = MIN_WORKER_NUM;
+            mWorkerNum = MIN_WORKER_NUM;
         } else {
-            workerNum = workerNum;
+            mWorkerNum = workerNum;
         }
 
         initThreadPool();
@@ -39,8 +39,10 @@ public class FixedThreadPool implements ThreadPool {
 
     private void initThreadPool() {
         mTaskQueue = new PriorityTaskQueue<>();
+
+        mWorkers = new Worker[mWorkerNum];
         for (int i = 0; i < mWorkerNum; i++) {
-            Worker worker = new Worker(mTaskQueue);
+            Worker worker = new Worker(mTaskQueue,"worker-" + i);
             mWorkers[i] = worker;
         }
     }

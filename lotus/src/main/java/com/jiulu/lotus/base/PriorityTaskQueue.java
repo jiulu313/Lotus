@@ -57,6 +57,10 @@ public class PriorityTaskQueue<E> implements TaskQueue<E> {
 
     @Override
     public E poll() {
+        if(isEmpty()){
+            return null;
+        }
+
         Entry entry = table[1];
         swap(1, size);
         size--;

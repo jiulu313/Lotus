@@ -4,7 +4,7 @@ package com.jiulu.lotus.exception;
  * Created by zhanghongjun on 2017/11/18.
  */
 
-public class ArgumentException extends Exception{
+public class ArgumentException extends RuntimeException{
     public ArgumentException(){
         super();
     }

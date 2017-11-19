@@ -2,6 +2,7 @@ package com.jiulu.lotus.test;
 
 import com.jiulu.lotus.base.FixedThreadPool;
 import com.jiulu.lotus.base.ThreadPool;
+import com.jiulu.lotus.cache.DiskCache;
 import com.jiulu.lotus.tool.Md5Utils;
 
 /**
@@ -44,9 +45,10 @@ public class Playground {
 //        pool.shutdown();
 
 
-        System.out.println(Md5Utils.toMd5("http://www.baidu.com"));
+//        System.out.println(Md5Utils.toMd5("http://www.baidu.com"));
 
 
+        DiskCache diskCache = new DiskCache<String,Long>(50 * 1024 * 1024);
 
     }
 

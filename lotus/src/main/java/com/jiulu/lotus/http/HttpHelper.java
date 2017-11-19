@@ -3,6 +3,8 @@ package com.jiulu.lotus.http;
 import android.content.Context;
 import android.content.pm.FeatureInfo;
 
+import com.jiulu.lotus.cache.DiskCache;
+import com.jiulu.lotus.cache.MemoryCache;
 import com.jiulu.lotus.tool.FileUtils;
 
 import java.io.File;
@@ -19,11 +21,15 @@ import okhttp3.Response;
  */
 
 public class HttpHelper {
+    private static HttpHelper sInstance;
+
     private OkHttpClient mOkHttpClient;
     private Context mContext;
+    private MemoryCache mMemoryCache;
+    private DiskCache mDiskCache;
 
 
-    private static HttpHelper sInstance;
+
 
     private HttpHelper(){
     }

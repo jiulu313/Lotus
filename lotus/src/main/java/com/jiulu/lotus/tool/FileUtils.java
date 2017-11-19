@@ -37,4 +37,49 @@ public class FileUtils {
         return false;
     }
 
+    //获取文件的大小,单位字节
+    public static long getFileSize(String filename){
+        File file = new File(filename);
+        if(!file.exists()){
+            return 0;
+        }
+
+        return file.length();
+    }
+
+    //获取文件大小，单位字节
+    public static long getFileSize(File file){
+        if(!file.exists()){
+            return 0;
+        }
+
+        return file.length();
+    }
+
+    public static long getDirSize(String dir){
+        File file = new File(dir);
+        return getDirSize(file);
+    }
+
+    //获取目录的大小，单位字节
+    public static long getDirSize(File dir){
+        if(dir.exists()){
+            if(dir.isDirectory()){
+                long size = 0l;
+                File[] childFiles = dir.listFiles();
+                for (File file : childFiles){
+                    size += getDirSize(file);
+                }
+                return size;
+            }else {
+                return dir.length();
+            }
+        }else {
+            return 0;
+        }
+    }
+
+
+
+
 }

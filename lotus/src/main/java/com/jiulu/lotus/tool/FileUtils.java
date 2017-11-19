@@ -79,6 +79,18 @@ public class FileUtils {
         }
     }
 
+    public static boolean fileExist(String filename){
+        return fileExist(new File(filename));
+    }
+
+    public static boolean fileExist(File file){
+        if(file == null){
+            return false;
+        }
+
+        return file.exists();
+    }
+
 
 
 

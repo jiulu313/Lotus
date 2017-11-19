@@ -8,7 +8,7 @@ import android.util.LruCache;
  * 内存缓存
  */
 
-public class MemoryCache {
+public class MemoryCache implements Cache<String,Bitmap>{
     LruCache<String,Bitmap> mLruCache;
 
     public MemoryCache(){
@@ -22,10 +22,12 @@ public class MemoryCache {
         };
     }
 
+    @Override
     public void save(String key,Bitmap bitmap){
         mLruCache.put(key,bitmap);
     }
 
+    @Override
     public Bitmap get(String key){
         return mLruCache.get(key);
     }

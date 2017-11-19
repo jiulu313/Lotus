@@ -48,7 +48,7 @@ public class Playground {
 //        System.out.println(Md5Utils.toMd5("http://www.baidu.com"));
 
 
-        DiskCache diskCache = new DiskCache<String,Long>(50 * 1024 * 1024);
+//        DiskCache diskCache = new DiskCache<String,Long>(50 * 1024 * 1024);
 
     }
 

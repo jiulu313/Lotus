@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.jiulu.lotus.core.Lotus;
 import com.jiulu.lotus.http.FileStorageManager;
 import com.jiulu.lotus.http.HttpHelper;
 import com.jiulu.lotus.tool.Logger;
@@ -29,10 +30,15 @@ public class MainActivity extends AppCompatActivity {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onDownload();
+//                onDownload();
+                onShowImage();
             }
         });
+    }
 
+    private void onShowImage() {
+        String url = "http://cyjctrip.qiniudn.com/1373740741/818B9AA0-6681-48E9-8B3C-147E30D5CA2C.jpg";
+        Lotus.with(this).load(url).into(ivShowImg);
     }
 
     private void onDownload() {

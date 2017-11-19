@@ -28,9 +28,6 @@ public class HttpHelper {
     private MemoryCache mMemoryCache;
     private DiskCache mDiskCache;
 
-
-
-
     private HttpHelper(){
     }
 
@@ -42,13 +39,14 @@ public class HttpHelper {
                 }
             }
         }
-
         return sInstance;
     }
 
     public void init(Context context){
         mContext = context;
         mOkHttpClient = new OkHttpClient();
+        mMemoryCache = new MemoryCache();
+        mDiskCache = new DiskCache();
     }
 
     //同步请求

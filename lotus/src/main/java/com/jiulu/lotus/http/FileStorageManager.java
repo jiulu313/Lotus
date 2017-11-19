@@ -72,12 +72,9 @@ public class FileStorageManager {
 
         String path = parent.getAbsolutePath() + File.separator + "lotusDiskCache";
         mCacheDir = new File(path);
-        if(mCacheDir.exists()){
-            mCacheDir.delete();
+        if(!mCacheDir.exists()){
+            mCacheDir.mkdir();
         }
-
-        boolean result = mCacheDir.mkdir();
-        Precondition.checkArgument(result,"Cache Dir created failed");
     }
 
 

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onShowImage() {
-        String url = "http://cyjctrip.qiniudn.com/1373740741/818B9AA0-6681-48E9-8B3C-147E30D5CA2C.jpg";
+        String url = "http://b.hiphotos.baidu.com/image/pic/item/e4dde71190ef76c606ac2feb9416fdfaae5167f0.jpg";
         Lotus.with(this).load(url).into(ivShowImg);
     }
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://cyjctrip.qiniudn.com/1373740741/818B9AA0-6681-48E9-8B3C-147E30D5CA2C.jpg";
+                String url = "http://b.hiphotos.baidu.com/image/pic/item/e4dde71190ef76c606ac2feb9416fdfaae5167f0.jpg";
 
                 File file = HttpHelper.getInstance().syncRequest(url);
                 if(file != null && file.exists()){

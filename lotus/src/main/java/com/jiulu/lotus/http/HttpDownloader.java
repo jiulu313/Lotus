@@ -1,5 +1,7 @@
 package com.jiulu.lotus.http;
 
+import java.io.File;
+
 /**
  * 下载器
  */
@@ -22,6 +24,11 @@ public class HttpDownloader {
         return sInstance;
     }
 
+    public File download(String url){
+
+
+        return null;
+    }
 
 
 

@@ -6,20 +6,12 @@
     android:orientation="vertical">
 
 
-
-    <Button
-        android:id="@+id/btn_download"
+    <ListView
+        android:id="@+id/lv_header_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="下载图片"/>
+        android:layout_height="match_parent">
 
-
-    <ImageView
-        android:id="@+id/iv_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+    </ListView>
 
 
 </LinearLayout>

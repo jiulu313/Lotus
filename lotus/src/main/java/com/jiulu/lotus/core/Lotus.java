@@ -50,7 +50,7 @@ public class Lotus {
     }
 
     public static ImageLoaderEngine with(Context context) {
-        return getImageLoaderEngine().init(context);
+        return getImageLoaderEngine().with(context);
     }
 
     public ImageLoaderEngine load(String url) {

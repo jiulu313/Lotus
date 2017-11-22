@@ -22,11 +22,7 @@ import okhttp3.Response;
 
 public class HttpHelper {
     private static HttpHelper sInstance;
-
     private OkHttpClient mOkHttpClient;
-    private Context mContext;
-    private MemoryCache mMemoryCache;
-    private DiskCache mDiskCache;
 
     private HttpHelper(){
     }
@@ -43,10 +39,7 @@ public class HttpHelper {
     }
 
     public void init(Context context){
-        mContext = context;
         mOkHttpClient = new OkHttpClient();
-        mMemoryCache = new MemoryCache();
-        mDiskCache = new DiskCache();
     }
 
     //同步请求

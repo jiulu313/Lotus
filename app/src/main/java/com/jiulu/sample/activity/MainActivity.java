@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         headers.add("http://img2.imgtn.bdimg.com/it/u=3746075707,1914896074&fm=214&gp=0.jpg");
         headers.add("http://up.qqya.com/allimg/201710-t/17-101802_69236.jpg");
         headers.add("http://img0.imgtn.bdimg.com/it/u=2777008330,1289798081&fm=214&gp=0.jpg");
-        headers.add("http://www.qqzhi.com/uploadpic/2014-10-02/015030299.jpg");
         headers.add("http://e.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=450129f5d12a60595245e91e1d0418ad/a8773912b31bb051ec177614307adab44aede0df.jpg");
         headers.add("http://up.qqjia.com/z/20/tu23989_4.jpg");
         headers.add("http://b.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=2b4e25657a8b4710ce7af5c8f6feefcb/b90e7bec54e736d1bec1514c93504fc2d46269a0.jpg");

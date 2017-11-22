@@ -30,20 +30,9 @@ public class Lotus {
     public static final String TAG = "Lotus";
     private static Lotus sInstance;
 
+    //唯一
+    private ImageLoaderEngine mImageLoaderEngine;
     private Context mContext;
-    private Configuration mConfiguration;
-    private String mUrl;
-    private ImageView mTargetImageView;
-
-    private Dispatcher mDispatcher;
-    private MemoryCache mMemoryCache;
-    private DiskCache mDiskCache;
-
-    //分发
-    private Handler mUiHandler;
-
-    private ThreadPool mPool;
-
 
     static Lotus self() {
         if (sInstance == null) {
@@ -57,117 +46,107 @@ public class Lotus {
     }
 
     private Lotus() {
-        if (mDispatcher == null) {
-            mDispatcher = new Dispatcher();
-        }
-
-        if(mUiHandler == null){
-            mUiHandler = new UIHandler();
-        }
-
-        if(mMemoryCache == null){
-            mMemoryCache = new MemoryCache();
-        }
-
-        if(mDiskCache == null){
-            mDiskCache = new DiskCache();
-        }
-
-        if(mPool == null){
-            mPool = new FixedThreadPool();
-            mPool.start();
-        }
+        mImageLoaderEngine = new ImageLoaderEngine();
     }
 
-    public static Lotus with(Context context) {
-        self().mContext = context;
-        return self();
+    public static ImageLoaderEngine with(Context context) {
+        return getImageLoaderEngine().init(context);
     }
 
-    public Lotus load(String url) {
-        self().mUrl = url;
-        return self();
+    public ImageLoaderEngine load(String url) {
+        return getImageLoaderEngine().load(url);
     }
 
-    public static Lotus configuration(Configuration configuration) {
-        self().mConfiguration = configuration;
-        return self();
+    public ImageLoaderEngine into(ImageView target){
+        return getImageLoaderEngine().into(target);
     }
 
-    public void into(ImageView targetImageView) {
-        self().mTargetImageView = targetImageView;
-
-        //1 检查条件
-        //self().checkCondition();
-
-        //2 检查内存缓存中有没有
-        Bitmap bitmap = self().mMemoryCache.get(self().mUrl);
-        if (bitmap == null) {
-            String filepath = self().mDiskCache.get(self().mUrl);
-            if(TextUtils.isEmpty(filepath)){
-                //3 磁盘缓存中也没有，从网络获取
-                self().getBitmapFromHttp(self().mUrl);
-                return;
-            }else {
-                bitmap = BitmapFactory.decodeFile(filepath);
-            }
-        }
-
-        if(bitmap != null){
-            self().showImage(self().mUrl);
-        }
+    public static ImageLoaderEngine getImageLoaderEngine(){
+        return self().mImageLoaderEngine;
     }
 
-    private void showImage(final String url) {
-        mUiHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap bitmap = mMemoryCache.get(url);
-                if(mTargetImageView != null){
-                    mTargetImageView.setImageBitmap(bitmap);
-                }
-            }
-        });
-    }
+//    public static Lotus configuration(Configuration configuration) {
+//        self().mConfiguration = configuration;
+//        return self();
+//    }
 
-    //从网络获取bitmap
-    private void getBitmapFromHttp(final String url) {
-        HttpDownloaderManager.getInstance().download(url, new DownloadFileCallback() {
-            @Override
-            public void downloadSuccess(File file) {
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                mDiskCache.save(url,file.getAbsolutePath());
-                mMemoryCache.save(url,bitmap);
-                showImage(url);
-            }
+//    public void into(ImageView targetImageView) {
+//        self().mTargetImageView = targetImageView;
+//
+//        //1 检查条件
+//        //self().checkCondition();
+//
+//        //2 检查内存缓存中有没有
+//        Bitmap bitmap = self().mMemoryCache.get(self().mUrl);
+//        if (bitmap == null) {
+//            String filepath = self().mDiskCache.get(self().mUrl);
+//            if(TextUtils.isEmpty(filepath)){
+//                //3 磁盘缓存中也没有，从网络获取
+//                self().getBitmapFromHttp(self().mUrl);
+//                return;
+//            }else {
+//                bitmap = BitmapFactory.decodeFile(filepath);
+//            }
+//        }
+//
+//        if(bitmap != null){
+//            self().showImage(self().mUrl);
+//        }
+//    }
 
-            @Override
-            public void downloadFailed() {
-                Logger.e(TAG,"url=" + mUrl + "下载失败");
-            }
-        });
-    }
+//    private void showImage(final String url) {
+//        mUiHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                Bitmap bitmap = mMemoryCache.get(url);
+//                if(bitmap == null){
+//                    Logger.e("Lotus","bitmap 为null url=" + url);
+//                }
+//                if(mTargetImageView != null){
+//                    mTargetImageView.setImageBitmap(bitmap);
+//                }
+//            }
+//        });
+//    }
 
-    private void checkCondition() {
-        Precondition.checkNotNull(mConfiguration, "Configuration must not be null");
-        Precondition.checkNotNull(mContext, "mContext must not be null");
-        Precondition.checkArgument(UrlUtils.isValidUrl(mUrl), "url is invalid");
-    }
+//    //从网络获取bitmap
+//    private void getBitmapFromHttp(final String url) {
+//        HttpDownloaderManager.getInstance().download(url, new DownloadFileCallback() {
+//            @Override
+//            public void downloadSuccess(File file) {
+//                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+//                mDiskCache.save(url,file.getAbsolutePath());
+//                mMemoryCache.save(url,bitmap);
+//                showImage(url);
+//            }
+//
+//            @Override
+//            public void downloadFailed() {
+//                Logger.e(TAG,"url=" + mUrl + "下载失败");
+//            }
+//        });
+//    }
 
-    class UIHandler extends Handler {
-        public UIHandler() {
-            super(Looper.getMainLooper());
-        }
+//    private void checkCondition() {
+//        Precondition.checkNotNull(mConfiguration, "Configuration must not be null");
+//        Precondition.checkNotNull(mContext, "mContext must not be null");
+//        Precondition.checkArgument(UrlUtils.isValidUrl(mUrl), "url is invalid");
+//    }
 
-        @Override
-        public void handleMessage(Message msg) {
-            onHandleMessage(msg);
-        }
-    }
+//    class UIHandler extends Handler {
+//        public UIHandler() {
+//            super(Looper.getMainLooper());
+//        }
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            onHandleMessage(msg);
+//        }
+//    }
 
-    private void onHandleMessage(Message msg) {
-
-
-    }
+//    private void onHandleMessage(Message msg) {
+//
+//
+//    }
 
 }

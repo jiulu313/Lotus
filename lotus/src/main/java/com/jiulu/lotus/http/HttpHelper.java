@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -60,6 +61,12 @@ public class HttpHelper {
         }
 
         return null;
+    }
+
+    //生成Call
+    public Call buildCall(String url){
+        Request request = new Request.Builder().url(url).build();
+        return mOkHttpClient.newCall(request);
     }
 
 }

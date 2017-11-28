@@ -64,6 +64,7 @@ public class FixedThreadPool implements ThreadPool {
         mRunning = false;
         for (int i = 0; i < mWorkerNum; i++) {
             mWorkers[i].shutdown();
+            mWorkers[i] = null;
         }
     }
 

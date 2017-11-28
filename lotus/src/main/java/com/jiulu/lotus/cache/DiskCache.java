@@ -1,9 +1,7 @@
 package com.jiulu.lotus.cache;
 
 
-import android.content.Context;
 import android.util.LruCache;
-
 import com.jiulu.lotus.tool.FileUtils;
 
 

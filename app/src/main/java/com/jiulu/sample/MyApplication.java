@@ -13,12 +13,6 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        init();
     }
 
-    private void init() {
-        FileStorageManager.getInstance().init(this);
-        HttpHelper.getInstance().init(this);
-
-    }
 }

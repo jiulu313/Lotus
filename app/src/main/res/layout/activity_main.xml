@@ -9,9 +9,16 @@
     <ListView
         android:id="@+id/lv_header_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
     </ListView>
+
+    <ImageView
+        android:id="@+id/iv_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_launcher"/>
 
 
 </LinearLayout>

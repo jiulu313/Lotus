@@ -9,18 +9,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.jiulu.lotus.base.FixedThreadPool;
-import com.jiulu.lotus.base.ThreadPool;
-import com.jiulu.lotus.cache.DiskCache;
-import com.jiulu.lotus.cache.MemoryCache;
-import com.jiulu.lotus.http.DownloadFileCallback;
-import com.jiulu.lotus.http.HttpDownloaderManager;
-import com.jiulu.lotus.tool.Logger;
-import com.jiulu.lotus.tool.Precondition;
-import com.jiulu.lotus.tool.UrlUtils;
-
-import java.io.File;
-
 
 /**
  * Created by zhanghongjun on 2017/11/19.

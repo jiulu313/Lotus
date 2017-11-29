@@ -33,7 +33,7 @@ public class FileStorageManager {
     }
 
     public void init(Context context){
-        mContext = context;
+        mContext = context.getApplicationContext();
         createCacheDir();
     }
 

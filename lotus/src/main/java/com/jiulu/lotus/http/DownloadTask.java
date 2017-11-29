@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import okhttp3.Call;
-import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -60,6 +59,7 @@ public class DownloadTask implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            mCallback.downloadFailed();
         }
     }
 

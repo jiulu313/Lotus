@@ -26,6 +26,7 @@ public class HttpHelper {
     private OkHttpClient mOkHttpClient;
 
     private HttpHelper(){
+        mOkHttpClient = new OkHttpClient();
     }
 
     public static HttpHelper getInstance(){
@@ -37,10 +38,6 @@ public class HttpHelper {
             }
         }
         return sInstance;
-    }
-
-    public void init(Context context){
-        mOkHttpClient = new OkHttpClient();
     }
 
     //同步请求
